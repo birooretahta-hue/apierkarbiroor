@@ -33,6 +33,27 @@ Sunucu acildiginda:
 - API: `http://localhost:3000`
 - Web panel: `http://localhost:3000/`
 
+## Railway Deploy
+
+Bu repo Railway icin hazir. `railway.json` ile:
+
+- `npm start` ile baslar
+- `GET /health` ile healthcheck yapar
+
+Deploy adimlari:
+
+1. Reponu GitHub'a push et.
+2. Railway'de `New Project` -> `Deploy from GitHub repo` sec.
+3. Gerekirse sadece `MAX_SENSOR_READINGS` gibi env degiskenlerini ekle.
+4. `PORT` degiskenini ekleme, Railway otomatik verir.
+
+Railway URL ile test:
+
+```powershell
+$env:TEST_API_BASE_URL = "https://<senin-servisin>.up.railway.app"
+cmd /c npm run test:ingest
+```
+
 ## Ortam Degiskenleri
 
 - `PORT` (varsayilan: `3000`)

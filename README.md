@@ -8,6 +8,12 @@ ESP32'den gelen sensor verilerini alan, saklayan ve web paneline canli ileten No
 cmd /c npm install
 ```
 
+`.env` olustur:
+
+```powershell
+Copy-Item .env.example .env
+```
+
 ## Calistirma
 
 Gelisim:
@@ -32,6 +38,8 @@ Sunucu acildiginda:
 - `PORT` (varsayilan: `3000`)
 - `DEVICE_API_KEY` (varsayilan: `esp32-demo-key`)
 - `MAX_SENSOR_READINGS` (varsayilan: `1000`)
+- `TEST_DEVICE_ID` (smoke testte kullanilir)
+- `TEST_API_BASE_URL` (opsiyonel: uzaktaki API'yi test etmek icin)
 
 PowerShell:
 
@@ -39,6 +47,22 @@ PowerShell:
 $env:DEVICE_API_KEY = "benim-gizli-anahtarim"
 cmd /c npm start
 ```
+
+`.env` ile:
+
+```env
+DEVICE_API_KEY=benim-gizli-anahtarim
+```
+
+## Hizli Test
+
+`.env` icine kendi API key'ini yazip su komutu calistir:
+
+```bash
+cmd /c npm run test:ingest
+```
+
+Bu komut sirasiyla `health`, `ingest` ve `latest` endpointlerini test eder.
 
 ## Sensor Endpointleri
 

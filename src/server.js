@@ -5,15 +5,13 @@ const cors = require("cors");
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-const DEVICE_API_KEY = process.env.DEVICE_API_KEY || "esp32-demo-key";
 const MAX_SENSOR_READINGS = Number(process.env.MAX_SENSOR_READINGS) || 1000;
 
 app.use(cors());
 app.use(express.json({ limit: "32kb" }));
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-let nextTodoId = 2;
-let todos = [
+const createInitialTodos = () => [
   {
     id: 1,
     title: "Ilk gorev",
@@ -21,6 +19,9 @@ let todos = [
     createdAt: new Date().toISOString(),
   },
 ];
+
+let nextTodoId = 2;
+let todos = createInitialTodos();
 
 let nextReadingId = 1;
 let sensorReadings = [];
@@ -76,14 +77,6 @@ const sendSensorUpdateToStreams = (reading) => {
   }
 };
 
-const requireDeviceApiKey = (req, res, next) => {
-  const key = req.get("x-device-key");
-  if (key !== DEVICE_API_KEY) {
-    return res.status(401).json({ message: "Gecersiz x-device-key" });
-  }
-  return next();
-};
-
 const createHistoryResponse = (req) => {
   const deviceId = normalizeDeviceId(req.query.deviceId);
   const rawLimit = req.query.limit;
@@ -107,7 +100,7 @@ app.get("/health", (_req, res) => {
   });
 });
 
-app.post("/api/v1/sensors/ingest", requireDeviceApiKey, (req, res) => {
+app.post("/api/v1/sensors/ingest", (req, res) => {
   const body = req.body || {};
   const deviceId = normalizeDeviceId(body.deviceId);
 
@@ -315,8 +308,16 @@ const start = (port = PORT) =>
     console.log(`API calisiyor: http://localhost:${port}`);
   });
 
+const resetForTests = () => {
+  nextTodoId = 2;
+  todos = createInitialTodos();
+  nextReadingId = 1;
+  sensorReadings = [];
+  sensorStreamClients.clear();
+};
+
 if (require.main === module) {
   start();
 }
 
-module.exports = { app, start };
+module.exports = { app, start, resetForTests };

@@ -4,7 +4,6 @@ const { start } = require("../src/server");
 
 const PORT = Number(process.env.PORT) || 3000;
 const API_BASE_URL = process.env.TEST_API_BASE_URL || `http://localhost:${PORT}`;
-const DEVICE_API_KEY = process.env.DEVICE_API_KEY || "esp32-demo-key";
 const TEST_DEVICE_ID = process.env.TEST_DEVICE_ID || "esp32-test-1";
 
 const parseJson = async (response) => {
@@ -51,7 +50,6 @@ const run = async () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-device-key": DEVICE_API_KEY,
       },
       body: JSON.stringify(payload),
     });

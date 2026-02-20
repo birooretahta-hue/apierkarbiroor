@@ -36,7 +36,6 @@ Sunucu acildiginda:
 ## Ortam Degiskenleri
 
 - `PORT` (varsayilan: `3000`)
-- `DEVICE_API_KEY` (varsayilan: `esp32-demo-key`)
 - `MAX_SENSOR_READINGS` (varsayilan: `1000`)
 - `TEST_DEVICE_ID` (smoke testte kullanilir)
 - `TEST_API_BASE_URL` (opsiyonel: uzaktaki API'yi test etmek icin)
@@ -44,25 +43,42 @@ Sunucu acildiginda:
 PowerShell:
 
 ```powershell
-$env:DEVICE_API_KEY = "benim-gizli-anahtarim"
+$env:PORT = "3000"
 cmd /c npm start
 ```
 
 `.env` ile:
 
 ```env
-DEVICE_API_KEY=benim-gizli-anahtarim
+PORT=3000
+MAX_SENSOR_READINGS=1000
 ```
 
-## Hizli Test
+## Test Sistemi
 
-`.env` icine kendi API key'ini yazip su komutu calistir:
+Otomatik testler:
+
+```bash
+cmd /c npm test
+```
+
+Smoke test (calisan API akisi):
 
 ```bash
 cmd /c npm run test:ingest
 ```
 
-Bu komut sirasiyla `health`, `ingest` ve `latest` endpointlerini test eder.
+`npm test` su kontrolleri yapar:
+
+- `GET /health`
+- `POST /api/v1/sensors/ingest` (API key olmadan)
+- Veri dogrulama hatalari
+
+`npm run test:ingest` su kontrolleri yapar:
+
+- `GET /health`
+- `POST /api/v1/sensors/ingest`
+- `GET /api/v1/sensors/latest`
 
 ## Sensor Endpointleri
 
@@ -75,7 +91,6 @@ Bu komut sirasiyla `health`, `ingest` ve `latest` endpointlerini test eder.
 
 Header:
 
-- `x-device-key: <DEVICE_API_KEY>`
 - `Content-Type: application/json`
 
 Body ornegi:
@@ -94,7 +109,6 @@ Body ornegi:
 
 ```bash
 curl -X POST http://localhost:3000/api/v1/sensors/ingest ^
-  -H "x-device-key: esp32-demo-key" ^
   -H "Content-Type: application/json" ^
   -d "{\"deviceId\":\"esp32-1\",\"temperature\":24.6,\"humidity\":52.1,\"soundLevel\":31.4}"
 ```
@@ -108,7 +122,6 @@ curl -X POST http://localhost:3000/api/v1/sensors/ingest ^
 const char* ssid = "WIFI_ADI";
 const char* pass = "WIFI_SIFRE";
 const char* apiUrl = "http://192.168.1.10:3000/api/v1/sensors/ingest";
-const char* apiKey = "esp32-demo-key";
 
 void setup() {
   Serial.begin(115200);
@@ -121,7 +134,6 @@ void loop() {
     HTTPClient http;
     http.begin(apiUrl);
     http.addHeader("Content-Type", "application/json");
-    http.addHeader("x-device-key", apiKey);
 
     float sicaklik = 24.5;   // kendi sensor degerini koy
     float nem = 50.0;        // kendi sensor degerini koy

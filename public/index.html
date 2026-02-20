@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESP32 Sensor Panel</title>
+    <style>
+      :root {
+        --bg-top: #e8f3ff;
+        --bg-bottom: #f7fbef;
+        --card: #ffffff;
+        --text: #1d2a3a;
+        --muted: #5d6d7e;
+        --line: #dce3ea;
+        --ok: #198754;
+        --warn: #dc3545;
+        --accent: #0d6efd;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+        color: var(--text);
+        background: linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 18px 36px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 1.75rem;
+        letter-spacing: 0.3px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        margin: 0 0 22px;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      input,
+      button {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 11px 12px;
+        font-size: 0.95rem;
+      }
+
+      input {
+        width: 100%;
+        background: #fff;
+      }
+
+      button {
+        cursor: pointer;
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+        font-weight: 600;
+      }
+
+      .status {
+        margin-bottom: 16px;
+        font-weight: 700;
+      }
+
+      .status.ok {
+        color: var(--ok);
+      }
+
+      .status.warn {
+        color: var(--warn);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+      }
+
+      .label {
+        margin: 0 0 8px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .value {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.35rem;
+      }
+
+      .table-wrap {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 11px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.9rem;
+      }
+
+      th {
+        background: #f4f8fd;
+        font-weight: 700;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      @media (max-width: 780px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 540px) {
+        .toolbar {
+          grid-template-columns: 1fr;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>ESP32 Sensor Panel</h1>
+      <p class="subtitle">Sicaklik, nem, ses seviyesi ve diger verileri canli izleme</p>
+
+      <section class="toolbar">
+        <input id="deviceId" type="text" value="esp32-1" />
+        <button id="connectBtn" type="button">Baglan</button>
+      </section>
+
+      <div id="status" class="status warn">Baglanti bekleniyor...</div>
+
+      <section class="grid">
+        <article class="card">
+          <p class="label">Sicaklik</p>
+          <p class="value" id="temperature">-</p>
+        </article>
+        <article class="card">
+          <p class="label">Nem</p>
+          <p class="value" id="humidity">-</p>
+        </article>
+        <article class="card">
+          <p class="label">Ses Seviyesi</p>
+          <p class="value" id="soundLevel">-</p>
+        </article>
+        <article class="card">
+          <p class="label">Pil</p>
+          <p class="value" id="battery">-</p>
+        </article>
+      </section>
+
+      <section class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Zaman</th>
+              <th>Cihaz</th>
+              <th>Sicaklik</th>
+              <th>Nem</th>
+              <th>Ses</th>
+            </tr>
+          </thead>
+          <tbody id="historyRows"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const deviceIdEl = document.getElementById("deviceId");
+      const historyRowsEl = document.getElementById("historyRows");
+      const connectBtn = document.getElementById("connectBtn");
+
+      const values = {
+        temperature: document.getElementById("temperature"),
+        humidity: document.getElementById("humidity"),
+        soundLevel: document.getElementById("soundLevel"),
+        battery: document.getElementById("battery"),
+      };
+
+      let eventSource;
+      const history = [];
+
+      const formatNumber = (value, suffix = "") => {
+        if (typeof value !== "number") return "-";
+        return `${value.toFixed(1)}${suffix}`;
+      };
+
+      const setStatus = (text, ok) => {
+        statusEl.textContent = text;
+        statusEl.className = `status ${ok ? "ok" : "warn"}`;
+      };
+
+      const applyReading = (reading) => {
+        values.temperature.textContent = formatNumber(reading.temperature, " C");
+        values.humidity.textContent = formatNumber(reading.humidity, " %");
+        values.soundLevel.textContent = formatNumber(reading.soundLevel, " dB");
+        values.battery.textContent = formatNumber(reading.battery, " %");
+      };
+
+      const renderHistory = () => {
+        historyRowsEl.innerHTML = history
+          .slice(0, 20)
+          .map(
+            (reading) => `
+            <tr>
+              <td>${new Date(reading.timestamp).toLocaleString("tr-TR")}</td>
+              <td>${reading.deviceId}</td>
+              <td>${formatNumber(reading.temperature)}</td>
+              <td>${formatNumber(reading.humidity)}</td>
+              <td>${formatNumber(reading.soundLevel)}</td>
+            </tr>
+          `
+          )
+          .join("");
+      };
+
+      const pushHistory = (reading) => {
+        history.unshift(reading);
+        if (history.length > 120) {
+          history.length = 120;
+        }
+      };
+
+      const fetchInitial = async (deviceId) => {
+        const historyRes = await fetch(
+          `/api/v1/sensors/history?deviceId=${encodeURIComponent(deviceId)}&limit=20`
+        );
+        if (!historyRes.ok) {
+          throw new Error("Gecmis veri alinamadi");
+        }
+        const items = await historyRes.json();
+        history.length = 0;
+        history.push(...items);
+        renderHistory();
+        if (items.length > 0) {
+          applyReading(items[0]);
+        }
+      };
+
+      const connectStream = async () => {
+        const deviceId = deviceIdEl.value.trim() || "esp32-1";
+        if (eventSource) {
+          eventSource.close();
+        }
+        setStatus("Baglanti kuruluyor...", false);
+
+        try {
+          await fetchInitial(deviceId);
+        } catch (_error) {
+          setStatus("Sunucuya baglanilamadi", false);
+          return;
+        }
+
+        eventSource = new EventSource(
+          `/api/v1/sensors/stream?deviceId=${encodeURIComponent(deviceId)}`
+        );
+
+        eventSource.addEventListener("ready", () => {
+          setStatus("Canli baglanti aktif", true);
+        });
+
+        eventSource.addEventListener("sensor", (event) => {
+          const reading = JSON.parse(event.data);
+          applyReading(reading);
+          pushHistory(reading);
+          renderHistory();
+        });
+
+        eventSource.onerror = () => {
+          setStatus("Baglanti koptu, tekrar denenecek...", false);
+        };
+      };
+
+      connectBtn.addEventListener("click", connectStream);
+      connectStream();
+    </script>
+  </body>
+</html>

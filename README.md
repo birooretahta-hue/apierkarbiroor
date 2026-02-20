@@ -28,6 +28,12 @@ Normal:
 cmd /c npm start
 ```
 
+PowerShell script policy hatasi alirsan:
+
+```powershell
+npm.cmd start
+```
+
 Sunucu acildiginda:
 
 - API: `http://localhost:3000`
@@ -172,3 +178,13 @@ void loop() {
   delay(5000);
 }
 ```
+
+Railway icin HTTPS ornek sketch dosyasi:
+
+- `esp32/railway_ingest.ino`
+
+Kullanim:
+
+1. `esp32/railway_ingest.ino` icindeki `ssid`, `pass`, `apiUrl` degerlerini guncelle.
+2. `apiUrl` icine Railway servis URL'ni yaz: `https://<servis>.up.railway.app/api/v1/sensors/ingest`
+3. Kodu ESP32'ye yukle, Serial Monitor'dan `HTTP code: 201` geldigini kontrol et.

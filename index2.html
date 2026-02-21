@@ -1,0 +1,1474 @@
+﻿<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>(şnyo)Biroor Akıllı Tahta Paneli </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* --- TEMA RENKLERİ VE GEÇİŞLER --- */
+/* --- TEMALAR --- */
+:root[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #f8fafc;
+    --accent: #38bdf8;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="light"] {
+    --bg-gradient: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    --panel-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #1e293b;
+    --accent: #0284c7;
+    --glass: rgba(0, 0, 0, 0.05);
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+:root[data-theme="forest"] {
+    --bg-gradient: linear-gradient(135deg, #04a87c, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #ecfdf5;
+    --accent: #34d399;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="midnight"] {
+    --bg-gradient: linear-gradient(135deg, #2e1065, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.03);
+    --text-main: #f5f3ff;
+    --accent: #a78bfa;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 40px rgba(0,0,0,0.7);
+}
+/* --- EK TEMALAR --- */
+:root[data-theme="ocean"] {
+    --bg-gradient: linear-gradient(135deg, #075985, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.07);
+    --text-main: #f0f9ff;
+    --accent: #38bdf8;
+    --glass: rgba(255, 255, 255, 0.12);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="sunset"] {
+    --bg-gradient: linear-gradient(135deg, #7c2d12, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #fff7ed;
+    --accent: #fb923c;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="cyber"] {
+    --bg-gradient: linear-gradient(135deg, #000000, #1a1a1a);
+    --panel-bg: rgba(0, 0, 0, 0.8);
+    --text-main: #00ff41; /* Matrix Yeşili */
+    --accent: #00ff41;
+    --glass: rgba(0, 255, 65, 0.1);
+    --shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+:root[data-theme="rose"] {
+    --bg-gradient: linear-gradient(135deg, #4c0519, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #fff1f2;
+    --accent: #fda4af;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="canva"] {
+    --bg-gradient: linear-gradient(135deg, #7c00f1, #053bea);
+    --panel-bg: rgba(255, 255, 255, 0.08);
+    --text-main: #f8fafc;
+    --accent: #3895f8;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+:root[data-theme="mars"] {
+    --bg-gradient: linear-gradient(135deg, #991b1b, #450a0a);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #fef2f2;
+    --accent: #f87171;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+:root[data-theme="lavender"] {
+    --bg-gradient: linear-gradient(135deg, #4c1d95, #2e1065);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #f5f3ff;
+    --accent: #ddd6fe;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="deepsea"] {
+    --bg-gradient: linear-gradient(135deg, #020617, #0f172a);
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --text-main: #38bdf8;
+    --accent: #7dd3fc;
+    --glass: rgba(56, 189, 248, 0.1);
+    --shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+:root[data-theme="gold"] {
+    --bg-gradient: linear-gradient(135deg, #7c8217, #000000);
+    --panel-bg: rgba(255, 255, 255, 0.03);
+    --text-main: #fef3c7;
+    --accent: #04ff00;
+    --glass: rgba(251, 191, 36, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+:root[data-theme="aurora"] {
+    --bg-gradient: linear-gradient(135deg, #0a4d68, #088395);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #e0f7ff;
+    --accent: #22d3ee;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+:root[data-theme="arctic"] {
+    --bg-gradient: linear-gradient(135deg, #f0f9ff, #dbeafe);
+    --panel-bg: rgba(255, 255, 255, 0.82);
+    --text-main: #0f172a;
+    --accent: #0284c7;
+    --glass: rgba(15, 23, 42, 0.08);
+    --shadow: 0 10px 28px rgba(15,23,42,0.12);
+}
+
+:root[data-theme="ember"] {
+    --bg-gradient: linear-gradient(135deg, #7f1d1d, #1f2937);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #fff1f2;
+    --accent: #fb7185;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 12px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="espresso"] {
+    --bg-gradient: linear-gradient(135deg, #3f2a1d, #120a08);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #fef3e2;
+    --accent: #f59e0b;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 32px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="coral"] {
+    --bg-gradient: linear-gradient(135deg, #ff7e5f, #3f2b96);
+    --panel-bg: rgba(255, 255, 255, 0.08);
+    --text-main: #fff7f5;
+    --accent: #fcd34d;
+    --glass: rgba(255, 255, 255, 0.12);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="emerald"] {
+    --bg-gradient: linear-gradient(135deg, #064e3b, #022c22);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #ecfdf5;
+    --accent: #34d399;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="sky"] {
+    --bg-gradient: linear-gradient(135deg, #0284c7, #0ea5e9);
+    --panel-bg: rgba(255, 255, 255, 0.12);
+    --text-main: #e0f2fe;
+    --accent: #fef08a;
+    --glass: rgba(255, 255, 255, 0.16);
+    --shadow: 0 10px 28px rgba(2,132,199,0.35);
+}
+
+:root[data-theme="graphite"] {
+    --bg-gradient: linear-gradient(135deg, #111827, #374151);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #f3f4f6;
+    --accent: #93c5fd;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="neon"] {
+    --bg-gradient: linear-gradient(135deg, #020617, #0f172a);
+    --panel-bg: rgba(2, 6, 23, 0.75);
+    --text-main: #e2e8f0;
+    --accent: #39ff14;
+    --glass: rgba(57, 255, 20, 0.12);
+    --shadow: 0 0 25px rgba(57,255,20,0.3);
+}
+
+:root[data-theme="sepia"] {
+    --bg-gradient: linear-gradient(135deg, #6b4f3b, #3e2f23);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #fef9c3;
+    --accent: #fbbf24;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="glacier"] {
+    --bg-gradient: linear-gradient(135deg, #1e3a8a, #0c4a6e);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #e0f2fe;
+    --accent: #7dd3fc;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+:root[data-theme="plum"] {
+    --bg-gradient: linear-gradient(135deg, #581c87, #3b0764);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #f5f3ff;
+    --accent: #c084fc;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 32px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="steel"] {
+    --bg-gradient: linear-gradient(135deg, #334155, #0f172a);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #e2e8f0;
+    --accent: #60a5fa;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="lemon"] {
+    --bg-gradient: linear-gradient(135deg, #facc15, #84cc16);
+    --panel-bg: rgba(255, 255, 255, 0.72);
+    --text-main: #1f2937;
+    --accent: #166534;
+    --glass: rgba(31, 41, 55, 0.09);
+    --shadow: 0 10px 26px rgba(0,0,0,0.2);
+}
+
+:root[data-theme="sakura"] {
+    --bg-gradient: linear-gradient(135deg, #fbcfe8, #f9a8d4);
+    --panel-bg: rgba(255, 255, 255, 0.75);
+    --text-main: #4a044e;
+    --accent: #be185d;
+    --glass: rgba(74, 4, 78, 0.08);
+    --shadow: 0 10px 26px rgba(0,0,0,0.15);
+}
+
+:root[data-theme="sand"] {
+    --bg-gradient: linear-gradient(135deg, #e7d3a7, #b08968);
+    --panel-bg: rgba(255, 255, 255, 0.62);
+    --text-main: #3b2f2f;
+    --accent: #8b5e34;
+    --glass: rgba(59, 47, 47, 0.08);
+    --shadow: 0 10px 28px rgba(0,0,0,0.22);
+}
+
+:root[data-theme="storm"] {
+    --bg-gradient: linear-gradient(135deg, #1f2937, #111827);
+    --panel-bg: rgba(255, 255, 255, 0.04);
+    --text-main: #e5e7eb;
+    --accent: #f59e0b;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 34px rgba(0,0,0,0.6);
+}
+
+:root[data-theme="ruby"] {
+    --bg-gradient: linear-gradient(135deg, #9f1239, #3f0f1f);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #ffe4e6;
+    --accent: #fb7185;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="mint"] {
+    --bg-gradient: linear-gradient(135deg, #99f6e4, #5eead4);
+    --panel-bg: rgba(255, 255, 255, 0.74);
+    --text-main: #134e4a;
+    --accent: #0f766e;
+    --glass: rgba(19, 78, 74, 0.08);
+    --shadow: 0 10px 26px rgba(0,0,0,0.15);
+}
+
+:root[data-theme="obsidian"] {
+    --bg-gradient: linear-gradient(135deg, #050505, #1c1c1c);
+    --panel-bg: rgba(255, 255, 255, 0.04);
+    --text-main: #f8fafc;
+    --accent: #22d3ee;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 36px rgba(0,0,0,0.7);
+}
+
+:root[data-theme="dawn"] {
+    --bg-gradient: linear-gradient(135deg, #ffedd5, #fed7aa);
+    --panel-bg: rgba(255, 255, 255, 0.75);
+    --text-main: #7c2d12;
+    --accent: #ea580c;
+    --glass: rgba(124, 45, 18, 0.08);
+    --shadow: 0 10px 28px rgba(0,0,0,0.14);
+}
+
+:root[data-theme="twilight"] {
+    --bg-gradient: linear-gradient(135deg, #1e1b4b, #6d28d9);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #f5f3ff;
+    --accent: #c4b5fd;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="lagoon"] {
+    --bg-gradient: linear-gradient(135deg, #0f766e, #164e63);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #ecfeff;
+    --accent: #5eead4;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+:root[data-theme="meadow"] {
+    --bg-gradient: linear-gradient(135deg, #14532d, #3f6212);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #f0fdf4;
+    --accent: #86efac;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 32px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="copper"] {
+    --bg-gradient: linear-gradient(135deg, #7c2d12, #431407);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #fff7ed;
+    --accent: #fdba74;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 32px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="cobalt"] {
+    --bg-gradient: linear-gradient(135deg, #172554, #1d4ed8);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #dbeafe;
+    --accent: #93c5fd;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="pearl"] {
+    --bg-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    --panel-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #334155;
+    --accent: #0ea5e9;
+    --glass: rgba(51, 65, 85, 0.08);
+    --shadow: 0 10px 24px rgba(51,65,85,0.14);
+}
+
+:root[data-theme="mono"] {
+    --bg-gradient: linear-gradient(135deg, #111111, #3b3b3b);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #f5f5f5;
+    --accent: #d4d4d4;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+:root[data-theme="bubblegum"] {
+    --bg-gradient: linear-gradient(135deg, #f9a8d4, #93c5fd);
+    --panel-bg: rgba(255, 255, 255, 0.72);
+    --text-main: #4a044e;
+    --accent: #db2777;
+    --glass: rgba(74, 4, 78, 0.08);
+    --shadow: 0 10px 26px rgba(0,0,0,0.14);
+}
+
+:root[data-theme="charcoal"] {
+    --bg-gradient: linear-gradient(135deg, #1f2937, #0f172a);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #e5e7eb;
+    --accent: #f97316;
+    --glass: rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 34px rgba(0,0,0,0.6);
+}
+
+:root[data-theme="sunrise"] {
+    --bg-gradient: linear-gradient(135deg, #fb923c, #f472b6);
+    --panel-bg: rgba(255, 255, 255, 0.1);
+    --text-main: #fff7ed;
+    --accent: #fef08a;
+    --glass: rgba(255, 255, 255, 0.14);
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+:root[data-theme="dusk"] {
+    --bg-gradient: linear-gradient(135deg, #0f172a, #7c2d12);
+    --panel-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #ffedd5;
+    --accent: #fdba74;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 34px rgba(0,0,0,0.6);
+}
+
+:root[data-theme="pine"] {
+    --bg-gradient: linear-gradient(135deg, #022c22, #14532d);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #ecfdf5;
+    --accent: #6ee7b7;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="violet"] {
+    --bg-gradient: linear-gradient(135deg, #312e81, #7c3aed);
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --text-main: #ede9fe;
+    --accent: #c4b5fd;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+:root[data-theme="amber"] {
+    --bg-gradient: linear-gradient(135deg, #78350f, #f59e0b);
+    --panel-bg: rgba(255, 255, 255, 0.12);
+    --text-main: #fffbeb;
+    --accent: #fde68a;
+    --glass: rgba(255, 255, 255, 0.16);
+    --shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="frost"] {
+    --bg-gradient: linear-gradient(135deg, #dbeafe, #cffafe);
+    --panel-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #0f172a;
+    --accent: #0ea5e9;
+    --glass: rgba(15, 23, 42, 0.08);
+    --shadow: 0 10px 24px rgba(15,23,42,0.12);
+}
+
+:root[data-theme="volcano"] {
+    --bg-gradient: linear-gradient(135deg, #7f1d1d, #111827);
+    --panel-bg: rgba(255, 255, 255, 0.04);
+    --text-main: #fee2e2;
+    --accent: #f97316;
+    --glass: rgba(255, 255, 255, 0.09);
+    --shadow: 0 10px 36px rgba(0,0,0,0.65);
+}
+
+:root[data-theme="rain"] {
+    --bg-gradient: linear-gradient(135deg, #334155, #475569);
+    --panel-bg: rgba(255, 255, 255, 0.07);
+    --text-main: #f1f5f9;
+    --accent: #7dd3fc;
+    --glass: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+:root[data-theme="orchid"] {
+    --bg-gradient: linear-gradient(135deg, #86198f, #db2777);
+    --panel-bg: rgba(255, 255, 255, 0.08);
+    --text-main: #fdf4ff;
+    --accent: #f9a8d4;
+    --glass: rgba(255, 255, 255, 0.12);
+    --shadow: 0 10px 32px rgba(0,0,0,0.45);
+}
+
+:root[data-theme="desertnight"] {
+    --bg-gradient: linear-gradient(135deg, #7c6f64, #1f2937);
+    --panel-bg: rgba(255, 255, 255, 0.08);
+    --text-main: #fef3c7;
+    --accent: #f59e0b;
+    --glass: rgba(255, 255, 255, 0.12);
+    --shadow: 0 10px 34px rgba(0,0,0,0.55);
+}
+
+        body { 
+            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; 
+            background: var(--bg-gradient); height: 100vh; display: flex; 
+            flex-direction: column; color: var(--text-main); transition: 0.5s ease; 
+            overflow: hidden; 
+        }
+
+        /* --- KURULUM EKRANI --- */
+        #setupOverlay {
+            position: fixed; inset: 0; background: var(--bg-gradient);
+            z-index: 10000; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- LAYOUT --- */
+        .status-bar { padding: 8px 20px; background: var(--glass); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass); }
+        
+        .main-grid {
+            display: grid; grid-template-columns: 320px 1fr 320px; grid-template-rows: 1fr 140px;
+            gap: 15px; padding: 15px; height: calc(100vh - 40px); box-sizing: border-box;
+        }
+
+        .panel { background: var(--panel-bg); backdrop-filter: blur(25px); border-radius: 20px; border: 1px solid var(--glass); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
+
+        /* --- SAAT VE SAYAÇ --- */
+        #clock { font-size: 4.2rem; font-weight: 800; text-align: center; margin: 0; color: var(--accent); }
+        #lessonTimer { font-size: 2.2rem; font-weight: bold; text-align: center; color: #fbbf24; }
+
+        /* --- ALT MENÜ --- */
+        .bottom-panel { grid-column: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .menu-card { 
+            background: var(--panel-bg); border-radius: 15px; border: 1px solid var(--glass); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            cursor: pointer; transition: 0.3s; font-weight: bold; font-size: 0.9rem;
+        }
+        .menu-card:hover { transform: translateY(-5px); background: var(--card-hover); border-color: var(--accent); }
+        .menu-card span { font-size: 1.5rem; margin-bottom: 4px; }
+
+        /* --- NÖBETÇİ STİLİ --- */
+        .nobet-item { display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass); padding: 5px 0; font-size: 0.85rem; }
+        .nobet-item b { color: var(--accent); }
+
+        /* --- SINIF ORTAM PANELI --- */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .sensor-cell {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass);
+            border-radius: 10px;
+            padding: 8px 10px;
+        }
+        .sensor-label {
+            font-size: 0.72rem;
+            opacity: 0.75;
+        }
+        .sensor-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-top: 3px;
+            color: var(--accent);
+        }
+        .sensor-status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            opacity: 0.9;
+        }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; backdrop-filter: blur(10px); }
+        .modal-content { max-width: 450px; margin: 15vh auto; padding: 25px; background: var(--panel-bg); border-radius: 25px; border: 1px solid var(--glass); }
+        
+        button { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid var(--glass); background: rgba(255,255,255,0.1); color: inherit; box-sizing: border-box; }
+        /* ATT Modal içindeki kaydırma çubuğunu özelleştir */
+#attListContent::-webkit-scrollbar {
+    width: 6px;
+}
+#attListContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+#attListContent::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+/* Make ATT modal vertically scrollable when there are many items */
+#attModal .modal-content {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+#attModal #attListContent {
+    overflow-y: auto;
+    max-height: calc(80vh - 120px); /* leave space for header and button */
+    padding-right: 6px;
+}
+#themeListContent::-webkit-scrollbar {
+    width: 6px;
+}
+#themeListContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+#themeListContent::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+#themeModal .modal-content {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+#themeModal #themeListContent {
+    overflow-y: auto;
+    max-height: calc(80vh - 120px);
+    padding-right: 6px;
+}
+    </style>
+</head>
+<body>
+
+<div id="setupOverlay">
+    <div class="panel" style="width: 320px; text-align: center;">
+        <h2 style="color: var(--accent); margin-bottom: 20px;">Panel Kurulumu</h2>
+        <select id="setupClass" style="width:100%; padding:12px; border-radius:10px; margin-bottom:20px;">
+            <option value="5A">5-A</option><option value="5B">5-B</option><option value="5C">5-C</option><option value="5D">5-D</option>
+            <option value="6A">6-A</option><option value="6B">6-B</option><option value="6C">6-C</option>
+            <option value="7A">7-A</option><option value="7B">7-B</option><option value="7C">7-C</option><option value="7D">7-D</option>
+            <option value="8A">8-A</option><option value="8B">8-B</option><option value="8C">8-C</option>
+        </select>
+        <button id="startBtn">SİSTEMİ BAŞLAT</button>
+    </div>
+</div>
+
+<div class="status-bar">
+    <div>| Sınıf: <b id="stClass">--</b></div>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <span id="uptime">⏱️ 0dk</span>
+        <span onclick="openModal('themeModal')" style="cursor:pointer;">🎨 TEMA</span>
+        <span onclick="toggleFullScreen()" style="cursor:pointer;">🔳 TAM EKRAN</span>
+    </div>
+</div>
+
+<div class="main-grid">
+    <div class="panel" style="grid-row: 1 / 3; gap: 15px;">
+        <div>
+            <h1 id="clock">00:00</h1>
+            <div id="date" style="text-align:center; opacity:0.7; font-size: 0.9rem;">-- --- ----</div>
+        </div>
+        <div style="background: var(--glass); padding: 15px; border-radius: 15px; text-align: center;">
+            <div id="currentLesson" style="font-weight:bold; color:var(--accent);">Ders Bekleniyor</div>
+            <div id="lessonTimer">--:--</div>
+            <small style="opacity:0.5; letter-spacing: 1px;">KALAN SÜRE</small>
+        </div>
+        <div style="flex:1">
+            <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--accent);">👮 Nöbetçi Hocalar</h4>
+            <div class="nobet-item">Bahçe: <b id="nBahce">--</b></div>
+            <div class="nobet-item">1. Kat: <b id="nK1">--</b></div>
+            <div class="nobet-item">2. Kat: <b id="nK2">--</b></div>
+            <div class="nobet-item">3. Kat: <b id="nK3">--</b></div>
+            <div class="nobet-item">4. Kat: <b id="nK4">--</b></div>
+        </div>
+    </div>
+
+    <div class="panel" style="grid-column: 2; overflow-y: auto;">
+        <h3 style="margin-top:0">📅 Günlük Ders Programı</h3>
+        <div id="lessonsPreview"></div>
+        <button class="btn-icon" onclick="showWeekly()" style="font-size:0.8rem;">🔍 Haftalık Bak</button>
+    </div>
+
+    <div class="bottom-panel">
+        <div class="menu-card" onclick="openModal('hwModal')"><span>📝</span>Ödevler</div>
+        <div class="menu-card" onclick="openModal('toolModal')"><span>🛠️</span>Araçlar</div>
+        <div class="menu-card" onclick="openModal('paintModal')"><span>🎨</span>Paint</div>
+        <div class="menu-card" onclick="toggleFocusMode()"><span>🧘</span>Odaklanma</div>
+        <div class="menu-card" onclick="openModal('attModal')"><span>📋</span>ATT SONUÇLARI</div>
+        <div class="menu-card" onclick="openModal('themeModal')"><span>🎨</span>TEMALAR</div>
+        <div class="menu-card" onclick="openModal('settingsModal')"><span>⚙️</span>Ayarlar</div>
+    </div>
+
+    <div class="panel" style="grid-column: 3; grid-row: 1 / 3;">
+        <div style="flex:1">
+            <h3 style="margin:0; color:var(--accent);">📌 Ödev Tahtası</h3>
+            <div id="hwPreview" style="font-size:0.85rem; margin-top:10px; overflow-y: auto;"></div>
+        </div>
+        <div style="padding:12px; background: var(--glass); border-radius: 16px; margin-top: 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <h4 style="margin:0; font-size:0.95rem; color:var(--accent);">🌡️ Sınıf Ortamı</h4>
+                <span id="sensorStatus" class="sensor-status">Bekleniyor</span>
+            </div>
+            <div style="font-size:0.72rem; opacity:0.7; margin-top:4px;">
+                Cihaz: <b id="sensorDeviceId">esp32-1</b>
+            </div>
+            <div class="sensor-grid">
+                <div class="sensor-cell">
+                    <div class="sensor-label">Sıcaklık</div>
+                    <div id="classTemp" class="sensor-value">-- °C</div>
+                </div>
+                <div class="sensor-cell">
+                    <div class="sensor-label">Nem</div>
+                    <div id="classHumidity" class="sensor-value">-- %</div>
+                </div>
+                <div class="sensor-cell">
+                    <div class="sensor-label">Ses</div>
+                    <div id="classSound" class="sensor-value">-- dB</div>
+                </div>
+                <div class="sensor-cell">
+                    <div class="sensor-label">Pil</div>
+                    <div id="classBattery" class="sensor-value">-- %</div>
+                </div>
+            </div>
+            <div id="sensorUpdatedAt" style="font-size:0.72rem; opacity:0.7; margin-top:8px;">Son veri: --</div>
+        </div>
+        <div style="text-align:center; padding:15px; background: var(--glass); border-radius: 20px; margin-top: 10px;">
+            <div id="wIcon" style="font-size: 2.5rem;">☀️</div>
+            <div id="wTemp" style="font-size: 1.8rem; font-weight: bold;">--°C</div>
+            <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 5px;">CİDE / KASTAMONU</div>
+        </div>
+    </div>
+</div>
+
+
+<div id="weeklyModal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:800px;">
+        <h2 style="color:var(--accent)">🗓️ Haftalık Program</h2>
+        <div style="overflow-x:auto;"><table id="weeklyTable"></table></div>
+        <button onclick="closeModal('weeklyModal')" class="btn-icon" style="margin-top:15px; width:100%; justify-content:center;">Kapat</button>
+    </div>
+</div>
+<div id="hwModal" class="modal"><div class="modal-content">
+    <h3>📝 Ödev Ekle</h3>
+    <input id="hT" placeholder="Ders Adı">
+    <input id="hD" placeholder="Ödev Detayı">
+    <button id="addHwBtn">Kaydet</button>
+    <button onclick="closeModal('hwModal')" style="background:none; color:var(--text-main)">Vazgeç</button>
+</div></div>
+<div id="toolModal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <h3 style="color:var(--accent)">🛠️ Akıllı Araçlar</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="background:var(--glass); padding:15px; border-radius:15px; text-align:center;">
+                <div id="stopwatchDisplay" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 5px;">00:00</div>
+                <button onclick="toggleStopwatch()" id="swBtn" style="font-size:0.7rem; padding:5px;">BAŞLAT</button>
+                <button onclick="resetStopwatch()" style="font-size:0.7rem; padding:5px; background:gray;">SIFIRLA</button>
+            </div>
+            <div style="background:var(--glass); padding:15px; border-radius:15px; text-align:center;">
+                <button onclick="playChime()" style="font-size:0.8rem; padding:10px; background:#10b981;">🔔 DİKKAT ZİLİ</button>
+            </div>
+        </div>
+        
+        <div style="background:var(--glass); padding:15px; border-radius:15px; margin-top:10px;">
+            <h4 style="margin:0 0 12px 0; color:var(--accent); text-align:center;">👥 Grup Oluşturucu</h4>
+            <div style="display:flex; gap:10px; margin-bottom:10px;">
+                <div style="flex:1;">
+                    <label style="font-size:0.8rem; display:block; margin-bottom:4px;">Mevcud</label>
+                    <input type="number" id="groupTotal" min="1" max="100" value="30" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--accent); background:rgba(56,189,248,0.1); color:inherit; box-sizing:border-box;">
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:0.8rem; display:block; margin-bottom:4px;">Grup Büyüklüğü</label>
+                    <input type="number" id="groupSize" min="1" max="50" value="5" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--accent); background:rgba(56,189,248,0.1); color:inherit; box-sizing:border-box;">
+                </div>
+            </div>
+            <button onclick="generateGroups()" style="width:100%; padding:10px; background:var(--accent); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin-bottom:10px;">GRUPLAR OLUŞTUR</button>
+            <div id="groupResult" style="font-size:0.85rem; max-height:150px; overflow-y:auto; line-height:1.8;"></div>
+        </div>
+        <button onclick="closeModal('toolModal')" style="background:none; color:var(--text-main); margin-top:15px;">Kapat</button>
+    </div>
+</div>
+<div id="paintModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <h3 style="color:var(--accent)">🎨 Paint (Çizim Tahtası)</h3>
+        <div style="margin-bottom: 10px; display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap;">
+            <div style="display:flex; gap:5px;">
+                <label style="font-size:0.75rem;">Renk:</label>
+                <input type="color" id="paintColor" value="#38bdf8" style="width:40px; height:30px; border:none; border-radius:5px; cursor:pointer;">
+            </div>
+            <div style="display:flex; gap:5px;">
+                <label style="font-size:0.75rem;">Kalın.:</label>
+                <input type="range" id="paintSize" min="2" max="20" value="5" style="width:80px;">
+                <span id="sizeDisplay" style="font-size:0.75rem; min-width:20px;">5</span>
+            </div>
+            <button onclick="clearPaint()" style="font-size:0.75rem; padding:5px 10px; background:#ef4444;">TÜM SİL</button>
+        </div>
+        <canvas id="paintCanvas" style="border:2px solid var(--accent); border-radius:10px; background:#000; cursor:crosshair; display:block; max-width:100%; height:400px; width:100%;"></canvas>
+        <button onclick="closeModal('paintModal')" style="background:none; color:var(--text-main); margin-top:15px;">Kapat</button>
+    </div>
+</div>
+<div id="attModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3 style="color:var(--accent); text-align:center; border-bottom: 1px solid var(--glass); padding-bottom: 10px;">📋  ATT Sıralaması</h3>
+        <div id="attListContent" style="margin-top: 15px;">
+            </div>
+        <button onclick="closeModal('attModal')" style="margin-top: 20px; background:var(--glass); color:var(--text-main)">Kapat</button>
+    </div>
+</div>
+<div id="themeModal" class="modal">
+    <div class="modal-content" style="max-width: 420px;">
+        <h3 style="color:var(--accent); text-align:center; border-bottom: 1px solid var(--glass); padding-bottom: 10px;">🎨 Tema Seçimi</h3>
+        <div id="themeListContent" style="margin-top: 15px;"></div>
+        <button onclick="closeModal('themeModal')" style="margin-top: 20px; background:var(--glass); color:var(--text-main)">Kapat</button>
+    </div>
+</div>
+<div id="settingsModal" class="modal">
+    <div class="modal-content" style="max-width: 450px; text-align: center;">
+        <h3 style="color:var(--accent); margin-top: 0;">⚙️ Panel Ayarları</h3>
+        
+        <div style="background: var(--glass); padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--glass);">
+            <img src="1.png" alt="Biroor Logo" style="width: 80px; height: 80px; border-radius: 15px; margin-bottom: 10px; object-fit: cover;">
+            <img src="2.png" alt="Biroor Logo" style="width: 80px; height: 80px; border-radius: 15px; margin-bottom: 10px; object-fit: cover;">
+            <h4 style="margin: 5px 0; color: var(--accent);">Biroor Akıllı Tahta Paneli</h4>
+            <p style="font-size: 0.75rem; opacity: 0.7; line-height: 1.4;">
+                Versiyon 4.8.3 /_-.Extaria.-_/ <br>
+                © 2025 - 2026 Berkay Aday  <br>
+                Cide / Kastamonu / Şehit Necmi Yıldırım Ortaokulu <br>
+            </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="resetSystem()" style="background:#ef4444; font-size: 0.8rem;">Sistemi Sıfırla (Fabrika Ayarları)</button>
+            <button onclick="closeModal('settingsModal')" style="background:var(--glass); color:var(--text-main); font-size: 0.8rem;">Kapat</button>
+        </div>
+    </div>
+</div>
+
+<div id="focusMode" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:10001; align-items:center; justify-content:center; flex-direction:column;">
+    <div id="focusClock" style="font-size:15vw; font-weight:900; color:var(--accent); text-shadow: 0 0 30px rgba(56,189,248,0.5); margin-bottom:40px; font-family:monospace; letter-spacing:20px;">00:00</div>
+    <button onclick="toggleFocusMode()" style="font-size:1.2rem; padding:15px 40px; background:var(--accent); color:#000; border:none; border-radius:15px; cursor:pointer; font-weight:bold;">Çıkış (ESC)</button>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { 
+        getFirestore, collection, addDoc, query, where, onSnapshot, 
+        doc, setDoc, serverTimestamp, deleteDoc 
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    
+    import { schoolData, lessonIcons, lessonHours, dutyTeachers } from './data.js';
+    import { attList, loadATT } from './att.js'; 
+
+    const firebaseConfig = { projectId: "birooretap" }; 
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const startTime = Date.now();
+    const sensorEls = {
+        status: document.getElementById("sensorStatus"),
+        deviceId: document.getElementById("sensorDeviceId"),
+        temp: document.getElementById("classTemp"),
+        humidity: document.getElementById("classHumidity"),
+        sound: document.getElementById("classSound"),
+        battery: document.getElementById("classBattery"),
+        updatedAt: document.getElementById("sensorUpdatedAt")
+    };
+    let sensorEventSource = null;
+    let sensorRefreshTimer = null;
+
+    const formatSensorValue = (value, suffix) => {
+        if (typeof value !== "number" || Number.isNaN(value)) {
+            return `-- ${suffix}`;
+        }
+        return `${value.toFixed(1)} ${suffix}`;
+    };
+
+    const setSensorStatus = (text, online = false) => {
+        if (!sensorEls.status) return;
+        sensorEls.status.textContent = text;
+        sensorEls.status.style.color = online ? "#22c55e" : "#f59e0b";
+    };
+
+    const updateSensorCards = (reading) => {
+        if (!reading) return;
+
+        sensorEls.temp.textContent = formatSensorValue(reading.temperature, "°C");
+        sensorEls.humidity.textContent = formatSensorValue(reading.humidity, "%");
+        sensorEls.sound.textContent = formatSensorValue(reading.soundLevel, "dB");
+        sensorEls.battery.textContent = formatSensorValue(reading.battery, "%");
+
+        const timestamp = reading.receivedAt || reading.timestamp;
+        sensorEls.updatedAt.textContent = timestamp
+            ? `Son veri: ${new Date(timestamp).toLocaleString("tr-TR")}`
+            : "Son veri: --";
+    };
+
+    const resolveSensorDeviceId = (cClass) => {
+        const normalizedClass = String(cClass || "").replace(/\s+/g, "").toUpperCase();
+        const classDeviceKey = normalizedClass ? `sensorDeviceId:${normalizedClass}` : "";
+        const classDeviceId = classDeviceKey ? localStorage.getItem(classDeviceKey) : null;
+        return classDeviceId || localStorage.getItem("sensorDeviceId") || "esp32-1";
+    };
+
+    const fetchLatestSensor = async (deviceId) => {
+        const res = await fetch(`/api/v1/sensors/latest?deviceId=${encodeURIComponent(deviceId)}`);
+        if (res.status === 404) {
+            setSensorStatus("Veri bekleniyor", false);
+            return null;
+        }
+        if (!res.ok) {
+            throw new Error(`Sensor latest hatasi: ${res.status}`);
+        }
+        const data = await res.json();
+        updateSensorCards(data);
+        setSensorStatus("Canli", true);
+        return data;
+    };
+
+    const connectSensorStream = (deviceId) => {
+        if (sensorEventSource) {
+            sensorEventSource.close();
+        }
+
+        sensorEventSource = new EventSource(
+            `/api/v1/sensors/stream?deviceId=${encodeURIComponent(deviceId)}`
+        );
+
+        sensorEventSource.addEventListener("ready", () => {
+            setSensorStatus("Canli", true);
+        });
+
+        sensorEventSource.addEventListener("sensor", (event) => {
+            try {
+                const reading = JSON.parse(event.data);
+                updateSensorCards(reading);
+                setSensorStatus("Canli", true);
+            } catch (_error) {
+                setSensorStatus("Veri hatasi", false);
+            }
+        });
+
+        sensorEventSource.onerror = () => {
+            setSensorStatus("Yeniden baglaniyor", false);
+        };
+    };
+
+    const startSensorMonitoring = async (cClass) => {
+        const deviceId = resolveSensorDeviceId(cClass);
+        sensorEls.deviceId.textContent = deviceId;
+        setSensorStatus("Baglaniyor", false);
+
+        try {
+            await fetchLatestSensor(deviceId);
+        } catch (_error) {
+            setSensorStatus("API baglantisi yok", false);
+        }
+
+        connectSensorStream(deviceId);
+
+        if (sensorRefreshTimer) {
+            clearInterval(sensorRefreshTimer);
+        }
+        sensorRefreshTimer = setInterval(() => {
+            fetchLatestSensor(deviceId).catch(() => {
+                setSensorStatus("API baglantisi yok", false);
+            });
+        }, 60000);
+    };
+
+    window.addEventListener("beforeunload", () => {
+        if (sensorEventSource) {
+            sensorEventSource.close();
+        }
+        if (sensorRefreshTimer) {
+            clearInterval(sensorRefreshTimer);
+        }
+    });
+window.showWeekly = () => {
+    const cClass = localStorage.getItem("myClass");
+    const table = document.getElementById("weeklyTable");
+    const days = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma"];
+    
+    if(!schoolData[cClass] || !lessonHours) return;
+
+    let head = `<tr><th style="width:80px; color:var(--accent);">Saat</th>` + 
+               days.map(d => `<th style="color:var(--accent);">${d}</th>`).join("") + `</tr>`;
+    
+    let body = "";
+
+    for(let i = 0; i < lessonHours.length; i++) { 
+ 
+        body += `<tr><td style="font-size:0.75rem; font-weight:bold; background:var(--glass);">
+                    ${lessonHours[i].s}<br>│<br>${lessonHours[i].e}
+                 </td>`;
+        
+        days.forEach(day => {
+            const dayLessons = schoolData[cClass][day] || [];
+            const lessonName = dayLessons[i];
+            
+ 
+            const icon = lessonName ? (lessonIcons[lessonName] || "📚") : "➖";
+    
+            const label = lessonName || "";
+
+            body += `<td style="padding:10px; border:1px solid var(--glass);">
+                        <div style="font-size:1.6rem; margin-bottom:4px;">${icon}</div>
+                        <div style="font-size:0.65rem; font-weight:bold; opacity:0.9; text-transform:uppercase;">${label}</div>
+                     </td>`;
+        });
+        
+        body += "</tr>";
+    }
+    
+    table.innerHTML = head + body;
+    table.style.width = "100%";
+    table.style.borderCollapse = "collapse";
+    
+    openModal('weeklyModal');
+};
+// Sayfa yüklendiğinde çalıştır
+window.addEventListener('DOMContentLoaded', () => {
+    loadATT();
+});
+    // --- TEMA HAFIZASI ---
+    const themeNames = [
+        'dark', 'light', 'forest', 'midnight', 'ocean', 'sunset', 'cyber', 'rose', 'canva', 'mars',
+        'lavender', 'deepsea', 'gold',
+        'aurora', 'arctic', 'ember', 'espresso', 'coral', 'emerald', 'sky', 'graphite', 'neon', 'sepia',
+        'glacier', 'plum', 'steel', 'lemon', 'sakura', 'sand', 'storm', 'ruby', 'mint', 'obsidian',
+        'dawn', 'twilight', 'lagoon', 'meadow', 'copper', 'cobalt', 'pearl', 'mono', 'bubblegum', 'charcoal',
+        'sunrise', 'dusk', 'pine', 'violet', 'amber', 'frost', 'volcano', 'rain', 'orchid', 'desertnight'
+    ];
+    const themeLabels = {
+        dark: 'Koyu',
+        light: 'Açık',
+        forest: 'Orman',
+        midnight: 'Gece Yarısı',
+        ocean: 'Okyanus',
+        sunset: 'Gün Batımı',
+        cyber: 'Cyber',
+        rose: 'Gül',
+        canva: 'Canva',
+        mars: 'Mars',
+        lavender: 'Lavanta',
+        deepsea: 'Derin Deniz',
+        gold: 'Altın',
+        aurora: 'Aurora',
+        arctic: 'Arktik',
+        ember: 'Kor',
+        espresso: 'Espresso',
+        coral: 'Mercan',
+        emerald: 'Zümrüt',
+        sky: 'Gökyüzü',
+        graphite: 'Grafit',
+        neon: 'Neon',
+        sepia: 'Sepya',
+        glacier: 'Buzul',
+        plum: 'Erik',
+        steel: 'Çelik',
+        lemon: 'Limon',
+        sakura: 'Sakura',
+        sand: 'Kum',
+        storm: 'Fırtına',
+        ruby: 'Yakut',
+        mint: 'Nane',
+        obsidian: 'Obsidyen',
+        dawn: 'Şafak',
+        twilight: 'Alacakaranlık',
+        lagoon: 'Lagün',
+        meadow: 'Çayır',
+        copper: 'Bakır',
+        cobalt: 'Kobalt',
+        pearl: 'İnci',
+        mono: 'Monokrom',
+        bubblegum: 'Şeker',
+        charcoal: 'Kömür',
+        sunrise: 'Gün Doğumu',
+        dusk: 'Akşam',
+        pine: 'Çam',
+        violet: 'Menekşe',
+        amber: 'Kehribar',
+        frost: 'Don',
+        volcano: 'Volkan',
+        rain: 'Yağmur',
+        orchid: 'Orkide',
+        desertnight: 'Çöl Gecesi'
+    };
+
+    const getThemeLabel = (themeId) => themeLabels[themeId] || themeId;
+    const renderThemeMenu = () => {
+        const listEl = document.getElementById('themeListContent');
+        if (!listEl) return;
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        listEl.innerHTML = themeNames.map((name) => {
+            const isActive = name === currentTheme;
+            return `<div onclick="setTheme('${name}')" style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        gap:10px;
+                        padding:10px 12px;
+                        border-radius:10px;
+                        margin-bottom:8px;
+                        cursor:pointer;
+                        border:1px solid ${isActive ? 'var(--accent)' : 'var(--glass)'};
+                        background:${isActive ? 'rgba(56,189,248,0.18)' : 'var(--glass)'};
+                    ">
+                        <span style="font-weight:700;">${getThemeLabel(name)}</span>
+                        <span style="font-size:0.72rem; opacity:0.75;">${isActive ? 'AKTİF' : ''}</span>
+                    </div>`;
+        }).join('');
+    };
+    const applyTheme = (themeId) => {
+        const safeTheme = themeNames.includes(themeId) ? themeId : 'dark';
+        document.documentElement.setAttribute('data-theme', safeTheme);
+        localStorage.setItem("panelTheme", safeTheme);
+        renderThemeMenu();
+        return safeTheme;
+    };
+    window.setTheme = (themeId) => applyTheme(themeId);
+
+    const savedThemeRaw = localStorage.getItem("panelTheme") || 'dark';
+    applyTheme(savedThemeRaw);
+
+    const savedClass = localStorage.getItem("myClass");
+    if (savedClass) {
+        document.getElementById("setupOverlay").style.display = "none";
+        initPanel(savedClass);
+    }
+
+    window.finishSetup = () => {
+        const sel = document.getElementById("setupClass").value;
+        localStorage.setItem("myClass", sel);
+        location.reload();
+    };
+
+    window.resetSystem = () => {
+        localStorage.clear();
+        location.reload();
+    };
+
+    function initPanel(cClass) {
+        document.getElementById("stClass").innerText = cClass;
+        const cNum = parseInt(cClass.charAt(0));
+        const cSec = cClass.charAt(1);
+
+        const updatePresence = async () => {
+            await setDoc(doc(db, "presence", cClass), {
+                lastSeen: serverTimestamp(),
+                status: "online",
+                className: cClass
+            }, { merge: true });
+        };
+        updatePresence();
+
+        function update() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
+            document.getElementById("clock").innerText = timeStr;
+            document.getElementById("date").innerText = now.toLocaleDateString("tr-TR", {day:'numeric', month:'long', weekday:'long'});
+            document.getElementById("uptime").innerText = `⏱️ ${Math.floor((Date.now() - startTime) / 60000)}dk`;
+
+            const day = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"][now.getDay()];
+            const nt = dutyTeachers[day] || {};
+            document.getElementById("nBahce").innerText = nt.bahce || "--";
+            document.getElementById("nK1").innerText = nt.kat1 || "--";
+            document.getElementById("nK2").innerText = nt.kat2 || "--";
+            document.getElementById("nK3").innerText = nt.kat3 || "--";
+            document.getElementById("nK4").innerText = nt.kat4 || "--";
+
+            const prog = schoolData[cClass] ? schoolData[cClass][day] : null;
+            let html = "", currentL = "Teneffüs ☕", timer = "--:--";
+            
+            if(prog) {
+                prog.forEach((d, i) => {
+                    const s = lessonHours[i].s, e = lessonHours[i].e;
+                    const active = (timeStr >= s && timeStr <= e);
+                    html += `<div class="lesson-box ${active ? 'active-lesson' : ''}" style="padding:10px; margin-bottom:5px; border-radius:10px; display:flex; justify-content:space-between; ${active ? 'background:var(--accent); color:#000;' : 'background:var(--glass);'}">
+                        <span>${lessonIcons[d] || '📚'} ${d}</span> <b>${s} - ${e}</b>
+                    </div>`;
+                    if(active) {
+                        currentL = d;
+                        const [eH, eM] = e.split(":").map(Number);
+                        const target = new Date(); target.setHours(eH, eM, 0);
+                        const diff = Math.floor((target - now) / 1000);
+                        if(diff > 0) timer = Math.floor(diff/60) + ":" + (diff%60).toString().padStart(2,'0');
+                    }
+                });
+            }
+            document.getElementById("lessonsPreview").innerHTML = html;
+            document.getElementById("currentLesson").innerText = currentL;
+            document.getElementById("lessonTimer").innerText = timer;
+        }
+
+        // --- ÖDEV LİSTESİ VE SİLME BUTONU ---
+        const q = query(collection(db, "homeworks"), where("classNumber", "==", cNum), where("classSection", "==", cSec));
+        onSnapshot(q, (snap) => {
+            let h = "";
+            snap.forEach(docSnap => { 
+                const data = docSnap.data();
+                const id = docSnap.id;
+                h += `
+                <div style="margin-bottom:10px; border-left:4px solid var(--accent); padding:8px 10px; background:var(--glass); border-radius:0 8px 8px 0; position:relative;">
+                    <div style="font-weight:bold; color:var(--accent); font-size:0.9rem;">${data.title}</div>
+                    <div style="font-size:0.8rem; opacity:0.9;">${data.desc}</div>
+                    <button onclick="deleteHomework('${id}')" style="position:absolute; right:5px; top:5px; width:20px; height:20px; padding:0; background:#ef4444; color:white; border-radius:50%; font-size:10px; border:none; cursor:pointer;">✕</button>
+                </div>`; 
+            });
+            document.getElementById("hwPreview").innerHTML = h || "<div style='opacity:0.5; text-align:center;'>Ödev yok ✨</div>";
+        });
+
+        setInterval(update, 1000); 
+        update(); 
+        getWeather();
+        startSensorMonitoring(cClass);
+    }
+
+    // --- SİLME FONKSİYONU ---
+    window.deleteHomework = async (id) => {
+    await deleteDoc(doc(db, "homeworks", id));
+    };
+
+    document.getElementById("addHwBtn").onclick = async () => {
+        const t = document.getElementById("hT").value;
+        const d = document.getElementById("hD").value;
+        const cClass = localStorage.getItem("myClass");
+        if(t && d && cClass) {
+            await addDoc(collection(db, "homeworks"), { 
+                title: t, desc: d, 
+                classNumber: parseInt(cClass.charAt(0)), 
+                classSection: cClass.charAt(1),
+                timestamp: serverTimestamp() 
+            });
+            document.getElementById("hT").value = "";
+            document.getElementById("hD").value = "";
+            closeModal('hwModal');
+        }
+    };
+
+    // --- MODAL KONTROLÜ ---
+    const origOpenModal = (id) => document.getElementById(id).style.display = 'block';
+    window.openModal = (id) => {
+        origOpenModal(id);
+        // Paint modal açılırsa canvas'ı hazırla
+        if(id === 'paintModal') {
+            setTimeout(() => {
+                const canvas = document.getElementById('paintCanvas');
+                if(canvas) {
+                    ctx = canvas.getContext('2d');
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight || 400;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+            }, 50);
+        }
+        if (id === 'themeModal') {
+            renderThemeMenu();
+        }
+    };
+    window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+    
+    // TEMA DONGUSU
+    window.toggleTheme = () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = themeNames[(themeNames.indexOf(current) + 1) % themeNames.length];
+        applyTheme(next);
+    };
+
+    window.toggleFullScreen = () => {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+    };
+
+    // ARAÇLAR: Kronometre, Zil, Sinema
+    let swInterval, swSeconds = 0;
+    window.toggleStopwatch = () => {
+        const btn = document.getElementById('swBtn');
+        if (swInterval) { clearInterval(swInterval); swInterval = null; btn.innerText = "DEVAM ET"; }
+        else {
+            swInterval = setInterval(() => {
+                swSeconds++;
+                const m = Math.floor(swSeconds/60).toString().padStart(2,'0');
+                const s = (swSeconds%60).toString().padStart(2,'0');
+                document.getElementById('stopwatchDisplay').innerText = `${m}:${s}`;
+            }, 1000);
+            btn.innerText = "DURDUR";
+        }
+    };
+    window.resetStopwatch = () => {
+        clearInterval(swInterval); swInterval = null; swSeconds = 0;
+        document.getElementById('stopwatchDisplay').innerText = "00:00";
+        document.getElementById('swBtn').innerText = "BAŞLAT";
+    };
+
+    window.playChime = () => {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1);
+        osc.start(); osc.stop(audioCtx.currentTime + 1);
+    };
+
+    // --- GRUP OLUŞTURUCU ---
+    window.generateGroups = () => {
+        const total = parseInt(document.getElementById('groupTotal').value) || 30;
+        const groupSize = parseInt(document.getElementById('groupSize').value) || 5;
+        const resultDiv = document.getElementById('groupResult');
+
+        if (groupSize > total) {
+            resultDiv.innerHTML = '<div style="color:#ef4444;">❌ Grup büyüklüğü mevcuddan fazla olamaz!</div>';
+            return;
+        }
+
+        // 1 ile total arasında rastgele sayı dizisi oluştur
+        const students = Array.from({length: total}, (_, i) => i + 1);
+        
+        // Fisher-Yates shuffle
+        for (let i = students.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [students[i], students[j]] = [students[j], students[i]];
+        }
+
+        // Grupları oluştur
+        const groups = [];
+        for (let i = 0; i < students.length; i += groupSize) {
+            groups.push(students.slice(i, i + groupSize));
+        }
+
+        // Sonucu göster
+        let html = '';
+        groups.forEach((group, idx) => {
+            html += `<div style="background:rgba(56,189,248,0.15); padding:8px; border-radius:8px; margin-bottom:8px; border-left:4px solid var(--accent);">
+                        <strong>Grup ${idx + 1}:</strong> ${group.join(', ')}
+                     </div>`;
+        });
+        
+        resultDiv.innerHTML = html;
+    };
+
+    // --- PAINT (ÇİZİM) FONKSİYONLARI ---
+    let isDrawing = false;
+    let ctx = null;
+
+    // Paint canvas event listeners setup
+    setTimeout(() => {
+        const canvas = document.getElementById('paintCanvas');
+        if(!canvas) return;
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if(!isDrawing || !ctx) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.strokeStyle = document.getElementById('paintColor').value;
+            ctx.lineWidth = document.getElementById('paintSize').value;
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        });
+
+        canvas.addEventListener('mouseup', () => { isDrawing = false; });
+        canvas.addEventListener('mouseout', () => { isDrawing = false; });
+
+        document.getElementById('paintSize').addEventListener('input', (e) => {
+            document.getElementById('sizeDisplay').innerText = e.target.value;
+        });
+    }, 100);
+
+    window.clearPaint = () => {
+        const canvas = document.getElementById('paintCanvas');
+        if(canvas && ctx) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    };
+
+    window.toggleTheater = () => {
+        const o = document.getElementById('theaterOverlay');
+        o.style.display = (o.style.display === 'none') ? 'block' : 'none';
+    };
+
+    // --- ODAKLANMA MODU (LO-FI & KARARTMA) ---
+    // Başlangıçta focusMode kapalı olduğundan emin ol
+    document.getElementById('focusMode').style.display = 'none';
+    
+    let focusActive = false;
+    let focusInterval = null;
+    let ambientOsc = null;
+
+    const handleFocusEsc = (e) => {
+        if (e.key === 'Escape' && focusActive) toggleFocusMode();
+    };
+
+    window.toggleFocusMode = () => {
+        const focusDiv = document.getElementById('focusMode');
+        focusActive = !focusActive;
+
+        if (focusActive) {
+            focusDiv.style.display = 'flex';
+            // Ambient ses başlat (soft white noise)
+            startAmbientSound();
+            // Saati güncelle
+            updateFocusClock();
+            focusInterval = setInterval(updateFocusClock, 1000);
+            // ESC tuşu ile çıkış
+            document.addEventListener('keydown', handleFocusEsc);
+        } else {
+            focusDiv.style.display = 'none';
+            stopAmbientSound();
+            clearInterval(focusInterval);
+            document.removeEventListener('keydown', handleFocusEsc);
+        }
+    };
+
+    const updateFocusClock = () => {
+        const now = new Date();
+        const timeStr = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
+        document.getElementById('focusClock').innerText = timeStr;
+    };
+
+    const startAmbientSound = () => {
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            
+            const bufferSize = audioCtx.sampleRate * 2;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            
+            const noiseSource = audioCtx.createBufferSource();
+            noiseSource.buffer = noiseBuffer;
+            noiseSource.loop = true;
+            
+            const noiseGain = audioCtx.createGain();
+            noiseGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+            
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(600, audioCtx.currentTime);
+            filter.Q.setValueAtTime(0.5, audioCtx.currentTime);
+            
+            noiseSource.connect(filter);
+            filter.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
+            noiseSource.start(0);
+            
+     
+            const bass = audioCtx.createOscillator();
+            const bassGain = audioCtx.createGain();
+            bass.type = 'sine';
+            bass.frequency.setValueAtTime(40, audioCtx.currentTime);
+            bassGain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            
+            bass.connect(bassGain);
+            bassGain.connect(audioCtx.destination);
+            bass.start();
+            
+            ambientOsc = { noiseSource, bass, audioCtx, noiseGain, bassGain };
+        } catch(e) {
+            console.log('Ambient sound error:', e);
+        }
+    };
+
+    const stopAmbientSound = () => {
+        if (ambientOsc) {
+            try {
+                if (ambientOsc.noiseSource) ambientOsc.noiseSource.stop();
+                if (ambientOsc.bass) ambientOsc.bass.stop();
+            } catch(e) {}
+            ambientOsc = null;
+        }
+    };
+
+
+    const startBtn = document.getElementById('startBtn');
+    if(startBtn) startBtn.onclick = window.finishSetup;
+
+    async function getWeather() {
+        try {
+            const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=41.89&longitude=32.99&current_weather=true");
+            const d = await r.json();
+            document.getElementById("wTemp").innerText = Math.round(d.current_weather.temperature) + "°C";
+            const icons = { 0: "☀️", 1: "🌤️", 2: "⛅", 3: "☁️", 61: "🌧️", 95: "⛈️" };
+            document.getElementById("wIcon").innerText = icons[d.current_weather.weathercode] || "⛅";
+        } catch(e) {}
+    }
+</script>
+</body>
+</html>
+

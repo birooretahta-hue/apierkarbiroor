@@ -2,10 +2,10 @@
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 
-const char* ssid = "WIFI_ADI";
-const char* pass = "WIFI_SIFRE";
-const char* apiUrl = "https://<senin-servisin>.up.railway.app/api/v1/sensors/ingest";
-const char* deviceId = "esp32-1";
+const char* ssid = "EspOkul6b";
+const char* pass = "espokul6b";
+const char* apiUrl = "https://apierkarbiroor-production.up.railway.app/api/v1/sensors/ingest";
+const char* deviceId = "esp32okul6b";
 
 void setup() {
   Serial.begin(115200);
